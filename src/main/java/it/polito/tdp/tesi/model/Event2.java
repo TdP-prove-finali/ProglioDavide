@@ -1,7 +1,5 @@
 package it.polito.tdp.tesi.model;
 
-import it.polito.tdp.tesi.model.Event.EventType;
-
 public class Event2 implements Comparable<Event2>{
 	
 	public enum Event2Type{

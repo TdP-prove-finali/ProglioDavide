@@ -12,7 +12,6 @@ public class LotSizing2 {
 	private double costoProdEsterna;
 	private double costoStoccaggio;
 	private int qtaIniziale;
-	//private HashMap<Integer, Produzione> schedOttima;
 	private ArrayList<Integer> schedOttima;
 	private double ctMin;
 	
@@ -25,7 +24,6 @@ public class LotSizing2 {
 		this.costoProdStraord = costoProdStraord;
 		this.costoStoccaggio = costoStoccaggio;
 		this.qtaIniziale = qtaIniziale;
-		//this.schedOttima = new HashMap<Integer, Produzione>();
 		this.schedOttima = new ArrayList<Integer>();
 		this.ctMin = 1000000;
 		HashMap<Integer, Produzione> schedule = new HashMap<Integer, Produzione>();
@@ -38,58 +36,15 @@ public class LotSizing2 {
 				schedule.put(ord, new Produzione(ord, this.capacitaOrd, 0, 0));
 				residua.put(ord, ordiniMese.get(ord)-this.capacitaOrd);
 			}
-			//schedule.get(ord).setQtaStoccata(ord-1); //
 		}
 		System.out.println("Domanda: ");
 		for(int d : ordiniMese.keySet()) {
 			System.out.println("Mese: "+d+", Domanda: "+ordiniMese.get(d));
 		}
-		/*System.out.println("\nPiano produttivo: ");
-		for(Produzione p : schedule.values()) {
-			System.out.println(p.toString());
-		}*/
 		System.out.println("\nQuantità rimanenti da produrre: ");
 		for(int r : residua.keySet()) {
 			System.out.println("Mese: "+r+", QtaRimenente: "+residua.get(r));
 		}
-		/*for(int mese : residua.keySet()) {
-			if(residua.get(mese)>0) {
-				ArrayList<Integer> parziale = new ArrayList<Integer>();
-				if(mese==1) {
-					parziale.add(schedule.get(mese).getQtaProdOrd());
-					parziale.add(schedule.get(mese).getQtaProdStraord());
-					parziale.add(schedule.get(mese).getQtaProdEst());
-				}else {
-					parziale.add(schedule.get(mese-1).getQtaProdOrd());
-					parziale.add(schedule.get(mese-1).getQtaProdStraord());
-					parziale.add(schedule.get(mese-1).getQtaProdEst());
-					parziale.add(schedule.get(mese).getQtaProdOrd());
-					parziale.add(schedule.get(mese).getQtaProdStraord());
-					parziale.add(schedule.get(mese).getQtaProdEst());
-				}
-				schedulazione(parziale, residua.get(mese), 0);
-			}
-		}*/
-		/*ArrayList<Integer> parziale = new ArrayList<Integer>();
-		parziale.add(schedule.get(1).getQtaProdOrd());
-		parziale.add(schedule.get(1).getQtaProdStraord());
-		parziale.add(schedule.get(1).getQtaProdEst());*/
-		/*ArrayList<Integer> parziale = new ArrayList<Integer>();
-		parziale.add(schedule.get(4).getQtaProdOrd());
-		parziale.add(schedule.get(4).getQtaProdStraord());
-		parziale.add(schedule.get(4).getQtaProdEst());
-		parziale.add(schedule.get(5).getQtaProdOrd());
-		parziale.add(schedule.get(5).getQtaProdStraord());
-		parziale.add(schedule.get(5).getQtaProdEst());*/
-		/*schedulazione(parziale, residua.get(1), 0);
-		System.out.println(output(this.schedOttima));*/ //aggiornare sched totale
-		/*schedule.get(4).setQtaProdOrd(this.schedOttima.get(0));
-		schedule.get(4).setQtaProdStraord(this.schedOttima.get(1));
-		schedule.get(4).setQtaProdEst(this.schedOttima.get(2));
-		schedule.get(5).setQtaProdOrd(this.schedOttima.get(3));
-		schedule.get(5).setQtaProdStraord(this.schedOttima.get(4));
-		schedule.get(5).setQtaProdEst(this.schedOttima.get(5));*/
-		
 		for(int mese : residua.keySet()) {
 			if(residua.get(mese)>0) {
 				ArrayList<Integer> parziale = new ArrayList<Integer>();
@@ -122,7 +77,6 @@ public class LotSizing2 {
 				}
 			}
 		}
-		
 		System.out.println("\nPiano produttivo: ");
 		for(Produzione p : schedule.values()) {
 			System.out.println(p.toString());
@@ -148,7 +102,6 @@ public class LotSizing2 {
 				}
 			}
 		}
-		
 	}
 	
 	private int getCapacita(int i) {

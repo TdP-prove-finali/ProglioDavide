@@ -4,12 +4,12 @@ public class TestSimulazione {
 
 	public static void main(String[] args) {
 		
-		Simulazione3 sim = new Simulazione3(1);
+		Simulazione2 sim = new Simulazione2(1);
 		sim.caricaCoda();
 		sim.run();
 		
 		System.out.println("TH: "+sim.getTH()+"\nCT: "+sim.getCT()
-			+"\nWIP: "+sim.getWIP()+"\nCTq: "+sim.getCTq()+"\nE[Te]: "+(sim.getCT()-sim.getCTq()));
+			+"\nWIP: "+sim.getWIP()/*+"\nCTq: "+sim.getCTq()+"\nE[Te]: "+(sim.getCT()-sim.getCTq())*/);
 		
 		/*double CTavg = 0;
 		double CTqavg = 0;

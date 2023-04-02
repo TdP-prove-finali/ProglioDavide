@@ -10,16 +10,16 @@ public class Simulazione3 {
 
 	//PARAMETRI IN INPUT
 	private int numeroWs;
-	private double tA = 4500; //3600
-	private double stdvA = 4500; //4318.5
-	private double t0 = 3480; //tempo di processo 1800
-	private double stdv0 = 2009; //2700
+	private double tA = 4500; 
+	private double stdvA = 4500; 
+	private double t0 = 3480; 
+	private double stdv0 = 2009; 
 		
 	//PARAMETRI IN OUTPUT
 	private double TH; //throughput 
 	private double CT; //tempo ciclo
 	private double WIP; //work in progress
-	private double CTq;
+	private double CTq; //tempo ciclo in coda
 
 	//STATO DEL MONDO
 	private HashMap<Integer, Double> jobs = new HashMap<Integer, Double>();
@@ -47,16 +47,10 @@ public class Simulazione3 {
 		this.queue.add(new Event2(0, Event2Type.NUOVO_JOB , nProd));
 		nProd++;
 		while(i<600*12*3600) {
-			Random r = new Random();
+			/*Random r = new Random();
 			double d = r.nextGaussian();
-			d = d*this.tA;
+			d = d*this.tA;*/
 			if(i%this.tA==0 && i>0) {
-				/*double ti;
-				if(Math.random()*((100+0)+1)>=50) {
-					ti = i + Math.random()*((this.stdvA+0)+1);
-				}else {
-					ti = i - Math.random()*((this.stdvA+0)+1);
-				}*/
 				double ti = i + Math.random()*this.stdvA;
 				this.queue.add(new Event2(ti, Event2Type.NUOVO_JOB , nProd));
 				nProd++;
@@ -80,21 +74,15 @@ public class Simulazione3 {
 		switch(e.getType()) {
 		case NUOVO_JOB:
 			if(!wkOccupata(e.getTempo())) {  //e.getTempo()>=this.time
-				/*if(this.pezziCompletati%this.Ns==0 && this.pezziCompletati!=0) {
-					this.time = this.time + this.ts + Math.random()*this.stdvS;
-				}else {*/
-				//double te;
-				/*if(Math.random()*((100+0)+1)>=50) {
-					te = this.t0 + Math.random()*((this.stdv0+0)+1);
-				}else {
-					te = this.t0 - Math.random()*((this.stdv0+0)+1);
-				}*/
 				double te = this.t0 + Math.random()*this.stdv0;
 				this.time = e.getTempo()+te;
 				if(this.codaWs.containsKey(e.getnProd())) {
 					te = te + this.codaWs.get(e.getnProd());
 				}
 				this.pezziCompletati++;
+				/*if(this.pezziCompletati%this.Ns==0 && this.pezziCompletati!=0) {
+					this.time = this.time + this.ts + Math.random()*this.stdvS;
+				}*/
 				this.jobs.put(e.getnProd(), te);
 				this.lastJob = e.getnProd();
 			}else {
@@ -109,14 +97,11 @@ public class Simulazione3 {
 			break;
 		/*case GUASTO:
 			if(e.getTempo()>=this.time) {
-				//this.time = this.time + this.mr + Math.random()*this.stdvF;
 				this.time = e.getTempo() + this.mr + Math.random()*this.stdvF;
 			}else {
-				double te = this.mr + Math.random()*this.stdvF;
-				//this.time = this.time + te;
-				this.time = e.getTempo() + te;
+				double te = this.mr + Math.random()*this.stdvR;
+				this.time = this.time + te;
 				this.jobs.put(this.lastJob, te+this.jobs.get(this.lastJob));
-				this.pezziCompletati++;
 			}
 			break;*/
 		}

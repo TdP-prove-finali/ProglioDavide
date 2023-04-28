@@ -1,7 +1,11 @@
 package it.polito.tdp.tesi.model;
 
 import java.util.HashMap;
+import java.lang.Object;
 import java.util.PriorityQueue;
+import java.util.Random;
+
+
 import it.polito.tdp.tesi.model.Event2.Event2Type;
 
 public class Simulazione2 {
@@ -47,7 +51,12 @@ public class Simulazione2 {
 		int i = 0;
 		int nProd = 1;
 		while(i<300*12*3600) {
+			int t = this.getPoisson(60); //tempo di interarrivo in minuti
+			Random r = new Random();
+			double t2 = r.nextGaussian()*30+15;
+			//t2 = t2*60; //30
 			if(i%this.tA==0) {
+				//int t = this.getPoisson(this.tA);
 				double ti = i + Math.random()*this.stdvA;
 				this.queue.add(new Event2(ti, Event2Type.NUOVO_JOB , nProd));
 				nProd++;
@@ -57,6 +66,19 @@ public class Simulazione2 {
 			}
 			i++;
 		}
+	}
+	
+	public static int getPoisson(double lambda) {
+		  double L = Math.exp(-lambda);
+		  double p = 1.0;
+		  int k = 0;
+
+		  do {
+		    k++;
+		    p *= Math.random();
+		  } while (p > L);
+
+		  return k - 1;
 	}
 	
 	public void run() {
@@ -71,7 +93,7 @@ public class Simulazione2 {
 		switch(e.getType()) {
 		case NUOVO_JOB:
 			if(e.getTempo()>=this.time) {
-				double te = this.t0 + Math.random()*this.stdv0;
+				double te = this.t0 + Math.random()*this.stdv0; //java random poisson
 				this.time = e.getTempo()+te;
 				if(this.codaWs.containsKey(e.getnProd())) {
 					te = te + this.codaWs.get(e.getnProd());

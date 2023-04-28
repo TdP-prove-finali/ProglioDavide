@@ -4,12 +4,28 @@ public class TestSimulazione {
 
 	public static void main(String[] args) {
 		
-		Simulazione2 sim = new Simulazione2(1);
+		/*Simulazione2 sim = new Simulazione2(1);
 		sim.caricaCoda();
 		sim.run();
 		
 		System.out.println("TH: "+sim.getTH()+"\nCT: "+sim.getCT()
-			+"\nWIP: "+sim.getWIP()/*+"\nCTq: "+sim.getCTq()+"\nE[Te]: "+(sim.getCT()-sim.getCTq())*/);
+			+"\nWIP: "+sim.getWIP()/*+"\nCTq: "+sim.getCTq()+"\nE[Te]: "+(sim.getCT()-sim.getCTq())*///);
+		
+		Simulazione3 sim = new Simulazione3();
+		sim.scegliLinea(1);
+		sim.caricaLinea();
+		sim.run();
+		sim.calcolaPerformance();
+		sim.getBestCase();
+		sim.getPracticalWorstCase();
+		sim.getWorstCase();
+		
+		/*Simulazione s = new Simulazione();
+		s.creaLinea(2);
+		s.caricaCoda();
+		s.run();
+		System.out.println("TH: "+s.getTH()+"\nCT: "+s.getCT()
+			+"\nWIP: "+s.getWIP());*/
 		
 		/*double CTavg = 0;
 		double CTqavg = 0;
@@ -22,6 +38,20 @@ public class TestSimulazione {
 		}
 		
 		System.out.println("CTavg: "+CTavg/20+"\nCTqavg: "+CTqavg/20);*/
+		
+		/*Analisi a = new Analisi();
+		for(int w=1; w<=20; w++) {
+			a.bestCase(1800, 2, w);
+			System.out.println("w: "+w+" Th best: "+a.getTH()+" Ct best: "+a.getCT());
+		}
+		for(int w=1; w<=20; w++) {
+			a.practicalWorstCase(1800, 2, w);
+			System.out.println("w: "+w+" Th practical worst: "+a.getTH()+" Ct practical worst: "+a.getCT());
+		}
+		for(int w=1; w<=20; w++) {
+			a.worstCase(1800, 2, w);
+			System.out.println("w: "+w+" Th worst: "+a.getTH()+" Ct worst: "+a.getCT());
+		}*/
 	}
 
 }

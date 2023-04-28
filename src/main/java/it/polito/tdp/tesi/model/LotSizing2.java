@@ -14,18 +14,20 @@ public class LotSizing2 {
 	private int qtaIniziale;
 	private ArrayList<Integer> schedOttima;
 	private double ctMin;
+	private double ctTot;
 	
-	public void lotSizing(HashMap<Integer, Integer> ordiniMese, int capacitaOrd, int capacitaStraord,
-			double costoProdOrd, double costoProdStraord, double costoProdEsterna, double costoStoccaggio, int qtaIniziale) {
+	public HashMap<Integer, Produzione> lotSizing(HashMap<Integer, Integer> ordiniMese, int capacitaOrd, int capacitaStraord,
+			double costoProdOrd, double costoProdStraord, double costoProdEsterna, double costoStoccaggio/*, int qtaIniziale*/) {
 		this.capacitaOrd = capacitaOrd;
 		this.capacitaStraord = capacitaStraord;
 		this.costoProdEsterna = costoProdEsterna;
 		this.costoProdOrd = costoProdOrd;
 		this.costoProdStraord = costoProdStraord;
 		this.costoStoccaggio = costoStoccaggio;
-		this.qtaIniziale = qtaIniziale;
+		//this.qtaIniziale = qtaIniziale;
 		this.schedOttima = new ArrayList<Integer>();
 		this.ctMin = 1000000;
+		this.ctTot = 0;
 		HashMap<Integer, Produzione> schedule = new HashMap<Integer, Produzione>();
 		HashMap<Integer, Integer> residua = new HashMap<Integer, Integer>();
 		for(int ord : ordiniMese.keySet()) {
@@ -63,6 +65,7 @@ public class LotSizing2 {
 					parziale.add(schedule.get(mese).getQtaProdEst());
 				}
 				schedulazione(parziale, residua.get(mese), 0);
+				this.ctTot = this.ctTot + this.ctMin;
 				if(mese==1) {
 					schedule.get(mese).setQtaProdOrd(this.schedOttima.get(0));
 					schedule.get(mese).setQtaProdStraord(this.schedOttima.get(1));
@@ -81,6 +84,8 @@ public class LotSizing2 {
 		for(Produzione p : schedule.values()) {
 			System.out.println(p.toString());
 		}
+		System.out.println("Costo totale gestione: "+this.ctTot);
+		return schedule;
 	}
 
 	private void schedulazione(ArrayList<Integer> parziale, Integer qtaResidua, int tipoProd) {
@@ -121,7 +126,7 @@ public class LotSizing2 {
 		}else {
 			ct = (parziale.get(0)+parziale.get(3))*this.costoProdOrd+(parziale.get(1)+parziale.get(4))*this.costoProdStraord
 					+(parziale.get(2)+parziale.get(5))*this.costoProdEsterna
-					+(parziale.get(0)+parziale.get(1)+parziale.get(2))*this.costoStoccaggio;
+					+(parziale.get(3)+parziale.get(4)+parziale.get(5))*this.costoStoccaggio;
 		}
 		return ct;
 	}

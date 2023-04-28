@@ -6,7 +6,6 @@ import java.util.PriorityQueue;
 import java.util.Random;
 
 import it.polito.tdp.tesi.model.Event.EventType;
-import it.polito.tdp.tesi.model.Event2.Event2Type;
 
 public class Simulazione3 {
 	
@@ -22,48 +21,52 @@ public class Simulazione3 {
 	
 	private PriorityQueue<Event> queue = new PriorityQueue<Event>();
 	private int pezziCompletati = 0;
+	/*
+	private HashMap<Integer, Integer> codaOg = new HashMap<Integer, Integer>();
+	*/
 	
 	public void scegliLinea(int scelta) {
 		switch (scelta) {
 			case 1:
 				this.linea.put(1, new WorkStation(3600, 4318.5, 1800, 2700, 28800, 1800, 3600,
 					10, 1200, 2400));
-				this.specifiche.add("WORKSTATION 1\n"+
-						"tempo medio di interarrivo: "+5000/3600+" h\n"+
-						"tempo medio di processo: "+1000/60+" min\n"+
-						"tempo medio tra guasti successivi: "+28800/3600+" h\n"+
-						"tempo medio di riparazione guasto: "+3600/3600+" h\n"+
-						"numero di jobs tra setups consecutivi: "+10+" jobs\n"+
-						"tempo medio di setup: "+1200/60+" min\n");
 				this.linea.put(2, new WorkStation(3600, 4318.5, 1800, 2700, 28800, 1800, 3600,
 					300, 1200, 2400));
-				this.specifiche.add("WORKSTATION 2\n"+
-						"tempo medio di interarrivo: "+3600/3600+" h\n"+
-						"tempo medio di processo: "+1800/60+" min\n"+
-						"tempo medio tra guasti successivi: "+28800/3600+" h\n"+
-						"tempo medio di riparazione guasto: "+3600/3600+" h\n"+
-						"numero di jobs tra setups consecutivi: "+300+" jobs\n"+
-						"tempo medio di setup: "+1200/60+" min\n");
+				for(int i=1; i<=this.linea.size(); i++) {
+					this.specifiche.add("WORKSTATION "+i+"\n"+this.linea.get(i).toString());
+				}
 			break;
 			case 2:
-				this.linea.put(1, new WorkStation(40000, 4318.5, 20000, 2700, 128800, 15000, 3600,
+				this.linea.put(1, new WorkStation(40000, 4318.5, 10000, 2700, 98000, 15000, 3600,
 					10, 10000, 2400));
-				this.specifiche.add("WORKSTATION 1\n"+
-						"tempo medio di interarrivo: "+40000/3600+" h\n"+
-						"tempo medio di processo: "+20000/3600+" h\n"+
-						"tempo medio tra guasti successivi: "+128800/3600+" h\n"+
-						"tempo medio di riparazione guasto: "+15000/3600+" h\n"+
-						"numero di jobs tra setups consecutivi: "+10+" jobs\n"+
-						"tempo medio di setup: "+10000/3600+" h\n");
+				this.linea.put(2, new WorkStation(30000, 4318.5, 10000, 2700, 128800, 15000, 3600,
+						10, 10000, 2400));
+				for(int i=1; i<=this.linea.size(); i++) {
+					this.specifiche.add("WORKSTATION "+i+"\n"+this.linea.get(i).toString());
+				}
 			break;
 		}
 	}
 
 	public void caricaLinea() {
+		this.CT=0;
+		this.TH=0;
+		this.WIP=0;
+		this.rb=0;
+		this.T0=0;
+		this.W0=0;
+		this.queue = new PriorityQueue<Event>();
+		this.pezziCompletati=0;
+		for(int i=1; i<this.linea.size()+1; i++) {
+			this.linea.get(i).getIngressi().clear();
+			this.linea.get(i).getUscite().clear();
+			this.linea.get(i).setTime(0);
+		}
 		WorkStation wk = this.linea.get(1);
 		int nProd = 1;
-		for(int i=0; i<300000; i=i+this.getPoisson(wk.getT0()/60)*60) {
+		for(int i=0; i<300000; i=i+this.getPoisson(wk.gettA()/60)*60) { 
 			this.queue.add(new Event(i, EventType.NUOVO_JOB, nProd, 1));
+			//this.codaOg.put(nProd, i);
 			nProd++;
 		}
 		for(int i=0; i<300000; i=i+this.getPoisson(wk.getMf()/60)*60) {
@@ -114,11 +117,16 @@ public class Simulazione3 {
 				wk.getIngressi().put(e.getnProd(), e.getTempo());
 			}
 			if(e.getTempo()>=wk.getTime()) { //wk libera
-				double te = this.getPoisson(wk.getT0()/60)*60; //this.getGaussian
+				//
+				if(e.getnProd()!=wk.getUscite().size()+1) {
+					System.out.println("PROBLEMA: ultima uscita: "+wk.getUscite().size()+" nuova lavorazione: "+e.getnProd());
+				}
+				//
+				double te = this.getPoisson(wk.getT0()/60)*60; //usare distribuzione beta
 				wk.setTime(e.getTempo()+te);
 				wk.getUscite().put(e.getnProd(), wk.getTime());
 				if(wk.getUscite().size()%wk.getNs()==0) { //necessario setUp
-					double tsu = this.getPoisson(wk.getTs()/60)*60; //this.getGaussian
+					double tsu = this.getPoisson(wk.getTs()/60)*60; //usare un'altra distribuzione di prob
 					wk.setTime(wk.getTime()+tsu);
 				}
 				if(this.linea.size()==nwk) {
@@ -135,10 +143,9 @@ public class Simulazione3 {
 			}else { //il guasto si verifica quando la macchina è occupata
 				boolean trovato = false;
 				HashMap<Integer, Double> uscite = new HashMap<Integer, Double>(wk.getUscite());
-				int ultimaUscita = uscite.size();
-				//int i = 1;
+				int ultimaUscita = uscite.size(); 
 				while(trovato==false) {
-					if(uscite.get(ultimaUscita)<e.getTempo()) { //job uscito prima del guasto?
+					if(uscite.get(ultimaUscita)<=e.getTempo()) { //job uscito prima del guasto?
 						trovato=true;
 					}else {
 						ultimaUscita--;
@@ -148,7 +155,9 @@ public class Simulazione3 {
 				for(int i=ultimaUscita+1; i<=wk.getUscite().size(); i++) {
 					wk.getUscite().replace(i, wk.getUscite().get(i)+tr);
 				}
-				wk.setTime(wk.getUscite().get(wk.getUscite().size()));
+				if(wk.getUscite().get(wk.getUscite().size())>wk.getTime()) { 
+					wk.setTime(wk.getUscite().get(wk.getUscite().size())); 
+				}
 			}
 		break;
 		}
@@ -190,15 +199,15 @@ public class Simulazione3 {
 		return Math.round(this.WIP*1000.0)/1000.0;
 	}
 	
-	public double getWipInt() {
+	/*public double getWipInt() {
 		return Math.ceil(this.WIP);
-	}
+	}*/
 	
 	public double getCT() {
 		return Math.round(this.CT*1000.0)/1000.0;
 	}
 	
-	public ArrayList<Analisi> getBestCase(){
+	/*public ArrayList<Analisi> getBestCase(){
 		System.out.println("\nBEST CASE:\n");
 		ArrayList <Analisi> bestCase = new ArrayList <Analisi>();
 		for(int w=1; w<=20; w++) {
@@ -215,9 +224,9 @@ public class Simulazione3 {
 			System.out.println(bestCase.get(w-1));
 		}
 		return bestCase;
-	}
+	}*/
 	
-	public ArrayList<Analisi> getWorstCase(){
+	/*public ArrayList<Analisi> getWorstCase(){
 		System.out.println("\nWORST CASE:\n");
 		ArrayList <Analisi> worstCase = new ArrayList <Analisi>();
 		for(int w=1; w<=20; w++) {
@@ -227,9 +236,9 @@ public class Simulazione3 {
 			System.out.println(worstCase.get(w-1));
 		}
 		return worstCase;
-	}
+	}*/
 	
-	public ArrayList<Analisi> getPracticalWorstCase(){
+	/*public ArrayList<Analisi> getPracticalWorstCase(){
 		System.out.println("\nPTRACTICAL WORST CASE:\n");
 		ArrayList <Analisi> practWorstCase = new ArrayList <Analisi>();
 		for(int w=1; w<=20; w++) {
@@ -239,7 +248,7 @@ public class Simulazione3 {
 			System.out.println(practWorstCase.get(w-1));
 		}
 		return practWorstCase;
-	}
+	}*/
 
 	public ArrayList<String> getSpecifiche() {
 		return specifiche;

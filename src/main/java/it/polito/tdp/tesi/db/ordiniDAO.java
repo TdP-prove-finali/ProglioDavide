@@ -11,11 +11,10 @@ import java.util.HashMap;
 import java.util.List;
 
 import it.polito.tdp.tesi.model.Domanda;
-import it.polito.tdp.tesi.model.ordineProduttivo;
 
 public class ordiniDAO {
 	
-	public ArrayList<ordineProduttivo> ordiniProdotto(String idProdotto){
+	/*public ArrayList<ordineProduttivo> ordiniProdotto(String idProdotto){
 		try {
 			Connection conn = DBconnect.getConnection();
 			String sql = "SELECT * FROM ordini WHERE id_prod = ?";
@@ -65,7 +64,7 @@ public class ordiniDAO {
 			e.printStackTrace();
 			return null;
 		}
-	}
+	}*/
 	
 	//Per LotSizing2
 	public ArrayList<Domanda> getDomandaMese(String idProdotto, int anno){

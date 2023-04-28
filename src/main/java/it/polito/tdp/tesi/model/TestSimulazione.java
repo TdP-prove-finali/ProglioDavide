@@ -12,13 +12,35 @@ public class TestSimulazione {
 			+"\nWIP: "+sim.getWIP()/*+"\nCTq: "+sim.getCTq()+"\nE[Te]: "+(sim.getCT()-sim.getCTq())*///);
 		
 		Simulazione3 sim = new Simulazione3();
+		System.out.println("linea 1");
 		sim.scegliLinea(1);
 		sim.caricaLinea();
 		sim.run();
 		sim.calcolaPerformance();
-		sim.getBestCase();
-		sim.getPracticalWorstCase();
-		sim.getWorstCase();
+		
+		System.out.println("\nlinea 1");
+		sim.scegliLinea(1);
+		sim.caricaLinea();
+		sim.run();
+		sim.calcolaPerformance();
+		
+		System.out.println("\nlinea 2");
+		sim.scegliLinea(2);
+		sim.caricaLinea();
+		sim.run();
+		sim.calcolaPerformance();
+		
+		System.out.println("\nlinea 1");
+		sim.scegliLinea(1);
+		sim.caricaLinea();
+		sim.run();
+		sim.calcolaPerformance();
+		
+		System.out.println("\nlinea 1");
+		sim.scegliLinea(1);
+		sim.caricaLinea();
+		sim.run();
+		sim.calcolaPerformance();
 		
 		/*Simulazione s = new Simulazione();
 		s.creaLinea(2);

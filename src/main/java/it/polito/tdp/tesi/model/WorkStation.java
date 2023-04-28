@@ -163,9 +163,12 @@ public class WorkStation {
 
 	@Override
 	public String toString() {
-		return "WorkStation tA=" + tA + ", stdvA=" + stdvA + ", t0=" + t0 + ", stdv0=" + stdv0 + ", mf=" + mf + ", mr="
-				+ mr + ", stdvR=" + stdvR + ", Ns=" + Ns + ", ts=" + ts + ", stdvS=" + stdvS + ", coda=" + coda
-				+ ", lasJob=" + lasJob + ", time=" + time + "\n";
+		return "WorkStation tempo medio di interarrivo: " + Math.round(tA/3600*100.0)/100.0 + 
+				" h\ntempo medio di processo: " + Math.round(t0/60*100.0)/100.0 +
+				" min\ntempo medio tra guasti successivi: " + Math.round(mf/3600*100.0)/100.0 + 
+				" h\ntempo medio di riparazione guasto: " + Math.round(mr/3600*100.0)/100.0 + 
+				" h\nnumero di jobs tra setups consecutivi: " + Ns + 
+				" jobs\ntempo medio di setup: " + Math.round(ts/3600*100.0)/100.0 + " h\n"; 
 	}
 	
 }

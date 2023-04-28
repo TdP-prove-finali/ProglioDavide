@@ -87,15 +87,15 @@ public class Model {
 		return this.sim.getWIP();
 	}
 	
-	public int getWipInt() {
+	/*public int getWipInt() {
 		return (int) this.sim.getWipInt();
-	}
+	}*/
 	
 	public double getCT() {
 		return this.sim.getCT();
 	}
 	
-	public ArrayList<Analisi> getBestCase() {
+	/*public ArrayList<Analisi> getBestCase() {
 		return this.sim.getBestCase();
 	}
 	
@@ -105,7 +105,7 @@ public class Model {
 	
 	public ArrayList<Analisi> getPracticalWorstCase() {
 		return this.sim.getPracticalWorstCase();
-	}
+	}*/
 	
 	/*public ArrayList<Produzione> lotSizing(HashMap<Integer, Integer> ordiniMese, int capacitaOrd, int capacitaStraord,
 			double costoProdOrd, double costoProdStraord, double costoProdEsterna, double costoStoccaggio) {

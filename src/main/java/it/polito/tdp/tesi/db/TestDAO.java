@@ -4,14 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 
-import it.polito.tdp.tesi.model.ordineProduttivo;
-
 public class TestDAO {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		ordiniDAO dao = new ordiniDAO();
-		ArrayList<ordineProduttivo> ordini = new ArrayList<ordineProduttivo>();
+		/*ArrayList<ordineProduttivo> ordini = new ArrayList<ordineProduttivo>();
 		ordini = dao.ordiniProdotto("12451C");
 		for(ordineProduttivo ord : ordini) {
 			System.out.println(ord.toString());
@@ -22,7 +20,7 @@ public class TestDAO {
 		ordiniMese = dao.getQtaProdottoMese("12451C", 2018);
 		for(int ord : ordiniMese.keySet()) {
 			System.out.println("Mese: "+ord+" qta: "+ordiniMese.get(ord));
-		}
+		}*/
 	}
 
 }

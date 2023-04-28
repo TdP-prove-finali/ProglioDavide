@@ -103,6 +103,9 @@ public class FXMLController {
     private Label txtProfit;
     
     @FXML
+    private TextField txtQtaProd;
+    
+    @FXML
     private CheckBox boxLinea1;
 
     @FXML
@@ -115,6 +118,9 @@ public class FXMLController {
     private TextArea txtSpecifiche;
     
     @FXML
+    private Label txtErrorSim;
+    
+    @FXML
     private Label txtCT;
     
     @FXML
@@ -123,11 +129,11 @@ public class FXMLController {
     @FXML
     private Label txtWIP;
     
-    @FXML
+    /*@FXML
     private LineChart<String, Double> chartThWip;
     
     @FXML
-    private LineChart<String, Double> chartCtWip;
+    private LineChart<String, Double> chartCtWip;*/
 
 
     /*@FXML
@@ -201,13 +207,13 @@ public class FXMLController {
     @FXML
     void handleCheck1(ActionEvent event) {
     	this.txtSpecifiche.clear();
-    	this.boxLinea2.setSelected(false);
-    	this.boxLinea3.setSelected(false);
-    	ArrayList<String> specifiche = new ArrayList<String>();
-    	specifiche = this.model.scegliLinea(1);
-    	for(String s : specifiche) {
-    		this.txtSpecifiche.appendText(s);
-    	}
+	    this.boxLinea2.setSelected(false);
+	    this.boxLinea3.setSelected(false);
+	    ArrayList<String> specifiche = new ArrayList<String>();
+	    specifiche = this.model.scegliLinea(1);
+	    for(String s : specifiche) {
+	    	this.txtSpecifiche.appendText(s);
+	    }
     }
     
     @FXML
@@ -226,8 +232,24 @@ public class FXMLController {
     
     @FXML
     void handleSimula(ActionEvent event) {
+    	int qtaDaProdurre;
     	try {
-    		this.txtCT.setText(null);
+    		qtaDaProdurre = Integer.parseInt(this.txtQtaProd.getText());
+    	}catch(NumberFormatException e) {
+    		this.txtErrorSim.setText("Introdurre un numero intero di pezzi da produrre!");
+    		System.out.println("Introdurre un numero intero di pezzi da produrre!");
+    		return;
+    	}
+    	try {
+    		
+    		this.model.simula();
+    		
+    		this.txtErrorSim.setText(null);
+    		
+    		this.txtCT.setText(String.valueOf(this.model.getCT()));
+    		this.txtTH.setText(String.valueOf(this.model.getTH()));
+    		this.txtWIP.setText(String.valueOf(this.model.getWIP()));
+    		/*this.txtCT.setText(null);
     		this.chartThWip.getData().clear();
     		this.chartCtWip.getData().clear();
     		
@@ -248,7 +270,7 @@ public class FXMLController {
     		ArrayList<Analisi> best1 = new ArrayList<Analisi>();
     		ArrayList<Analisi> worst1 = new ArrayList<Analisi>();
     		ArrayList<Analisi> practWorst1 = new ArrayList<Analisi>();
-    		best1 = this.model.getBestCase();
+    		/*best1 = this.model.getBestCase();
     		worst1 = this.model.getWorstCase();
     		practWorst1 = this.model.getPracticalWorstCase();
     		for(Analisi a : best1) {
@@ -278,14 +300,15 @@ public class FXMLController {
     		TH.getData().add(new XYChart.Data<String, Double>(String.valueOf(this.model.getWipInt()), this.model.getTH()));
     		CT.getData().add(new XYChart.Data<String, Double>(String.valueOf(this.model.getWipInt()), this.model.getCT()));
     		TH.setName("TH linea");
-    		CT.setName("TH linea");
+    		CT.setName("CT linea");
     		this.chartThWip.getData().add(TH);
-    		this.chartCtWip.getData().add(CT);
+    		this.chartCtWip.getData().add(CT);*/
     	}catch(NullPointerException e) {
-    		e.printStackTrace();
+    		this.txtErrorSim.setText("Selezionare la linea da testare!");
+    		System.out.println("Selezionare la linea da testare!");
+    		//e.printStackTrace();
     		return;
     	}
-    	
     }
 
     @FXML
@@ -311,15 +334,17 @@ public class FXMLController {
         assert txtErrorSched != null : "fx:id=\"txtErrorSched\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtPrezzo != null : "fx:id=\"txtPrezzo\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtProfit != null : "fx:id=\"txtProfit\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert txtQtaProd != null : "fx:id=\"txtQtaProd\" was not injected: check your FXML file 'Scene.fxml'.";
         assert boxLinea1 != null : "fx:id=\"boxLinea1\" was not injected: check your FXML file 'Scene.fxml'.";
         assert boxLinea2 != null : "fx:id=\"boxLinea2\" was not injected: check your FXML file 'Scene.fxml'.";
         assert boxLinea3 != null : "fx:id=\"boxLinea3\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtSpecifiche != null : "fx:id=\"txtSpecifiche\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert txtErrorSim != null : "fx:id=\"txtErrorSim\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtCT != null : "fx:id=\"txtCT\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtTH != null : "fx:id=\"txtTH\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtWIP != null : "fx:id=\"txtWIP\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert chartThWip != null : "fx:id=\"chartThWip\" was not injected: check your FXML file 'Scene.fxml'.";
-        assert chartCtWip != null : "fx:id=\"chartCtWip\" was not injected: check your FXML file 'Scene.fxml'.";
+        //assert chartThWip != null : "fx:id=\"chartThWip\" was not injected: check your FXML file 'Scene.fxml'.";
+        //assert chartCtWip != null : "fx:id=\"chartCtWip\" was not injected: check your FXML file 'Scene.fxml'.";
         //assert th != null : "fx:id=\"th\" was not injected: check your FXML file 'Scene.fxml'.";
         //assert wip != null : "fx:id=\"wip\" was not injected: check your FXML file 'Scene.fxml'.";
 

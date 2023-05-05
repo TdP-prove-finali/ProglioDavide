@@ -121,6 +121,9 @@ public class FXMLController {
     private Label txtErrorSim;
     
     @FXML
+    private Label txtTempoImpiegato;
+    
+    @FXML
     private Label txtCT;
     
     @FXML
@@ -206,26 +209,52 @@ public class FXMLController {
     
     @FXML
     void handleCheck1(ActionEvent event) {
-    	this.txtSpecifiche.clear();
-	    this.boxLinea2.setSelected(false);
-	    this.boxLinea3.setSelected(false);
-	    ArrayList<String> specifiche = new ArrayList<String>();
-	    specifiche = this.model.scegliLinea(1);
-	    for(String s : specifiche) {
-	    	this.txtSpecifiche.appendText(s);
-	    }
+    	if(!this.boxLinea1.isSelected()) {
+    		this.txtSpecifiche.clear();
+    		this.model.resetLinea();
+    	}else {
+	    	this.txtSpecifiche.clear();
+		    this.boxLinea2.setSelected(false);
+		    this.boxLinea3.setSelected(false);
+		    ArrayList<String> specifiche = new ArrayList<String>();
+		    specifiche = this.model.scegliLinea(1);
+		    for(String s : specifiche) {
+		    	this.txtSpecifiche.appendText(s);
+		    }
+    	}
     }
     
     @FXML
     void handleCheck2(ActionEvent event) {
-    	this.txtSpecifiche.clear();
-    	//this.txtSpecifiche.clear();
-    	this.boxLinea1.setSelected(false);
-    	this.boxLinea3.setSelected(false);
-    	ArrayList<String> specifiche = new ArrayList<String>();
-    	specifiche = this.model.scegliLinea(2);
-    	for(String s : specifiche) {
-    		this.txtSpecifiche.appendText(s);
+    	if(!this.boxLinea2.isSelected()) {
+    		this.txtSpecifiche.clear();
+    		this.model.resetLinea();
+    	}else {
+	    	this.txtSpecifiche.clear();
+	    	this.boxLinea1.setSelected(false);
+	    	this.boxLinea3.setSelected(false);
+	    	ArrayList<String> specifiche = new ArrayList<String>();
+	    	specifiche = this.model.scegliLinea(2);
+	    	for(String s : specifiche) {
+	    		this.txtSpecifiche.appendText(s);
+	    	}
+    	}
+    }
+    
+    @FXML
+    void handleCheck3(ActionEvent event) {
+    	if(!this.boxLinea3.isSelected()) {
+    		this.txtSpecifiche.clear();
+    		this.model.resetLinea();
+    	}else {
+	    	this.txtSpecifiche.clear();
+	    	this.boxLinea2.setSelected(false);
+	    	this.boxLinea1.setSelected(false);
+	    	ArrayList<String> specifiche = new ArrayList<String>();
+	    	specifiche = this.model.scegliLinea(3);
+	    	for(String s : specifiche) {
+	    		this.txtSpecifiche.appendText(s);
+	    	}
     	}
     }
 
@@ -235,6 +264,11 @@ public class FXMLController {
     	int qtaDaProdurre;
     	try {
     		qtaDaProdurre = Integer.parseInt(this.txtQtaProd.getText());
+    		if(qtaDaProdurre>20000) {
+    			this.txtErrorSim.setText("Inserire un numero inferiore a 20000!");
+    			System.out.println("Inserire un numero inferiore a 20000!");
+    			return;
+    		}
     	}catch(NumberFormatException e) {
     		this.txtErrorSim.setText("Introdurre un numero intero di pezzi da produrre!");
     		System.out.println("Introdurre un numero intero di pezzi da produrre!");
@@ -242,13 +276,15 @@ public class FXMLController {
     	}
     	try {
     		
-    		this.model.simula();
+    		this.model.simula(qtaDaProdurre);
     		
     		this.txtErrorSim.setText(null);
     		
-    		this.txtCT.setText(String.valueOf(this.model.getCT()));
-    		this.txtTH.setText(String.valueOf(this.model.getTH()));
-    		this.txtWIP.setText(String.valueOf(this.model.getWIP()));
+    		this.txtTempoImpiegato.setText(String.valueOf(this.model.getTempoImpiegato())+" h, "
+    				+ "equivalenti a "+String.valueOf(this.model.getTempoImpiegatoG())+" giorni");
+    		this.txtCT.setText(String.valueOf(this.model.getCT())+" h");
+    		this.txtTH.setText(String.valueOf(this.model.getTH())+" unità/h");
+    		this.txtWIP.setText(String.valueOf(this.model.getWIP())+" unità");
     		/*this.txtCT.setText(null);
     		this.chartThWip.getData().clear();
     		this.chartCtWip.getData().clear();
@@ -340,6 +376,7 @@ public class FXMLController {
         assert boxLinea3 != null : "fx:id=\"boxLinea3\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtSpecifiche != null : "fx:id=\"txtSpecifiche\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtErrorSim != null : "fx:id=\"txtErrorSim\" was not injected: check your FXML file 'Scene.fxml'.";
+        assert txtTempoImpiegato != null : "fx:id=\"txtTempoImpiegato\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtCT != null : "fx:id=\"txtCT\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtTH != null : "fx:id=\"txtTH\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtWIP != null : "fx:id=\"txtWIP\" was not injected: check your FXML file 'Scene.fxml'.";

@@ -12,18 +12,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="580.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.tesi.FXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.tesi.FXMLController">
    <center>
-      <VBox alignment="TOP_CENTER" prefHeight="840.0" prefWidth="850.0" BorderPane.alignment="CENTER">
+      <VBox alignment="TOP_CENTER" prefHeight="882.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
-            <ScrollPane hbarPolicy="NEVER" prefHeight="866.0" prefWidth="850.0" vbarPolicy="ALWAYS">
+            <ScrollPane hbarPolicy="NEVER" prefHeight="880.0" prefWidth="850.0" vbarPolicy="ALWAYS">
               <content>
-                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="853.0" prefWidth="840.0">
+                <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="881.0" prefWidth="840.0">
                      <children>
                         <VBox prefHeight="875.0" prefWidth="840.0">
                            <children>
@@ -214,16 +213,16 @@
                                     </VBox>
                                  </children>
                               </HBox>
-                              <VBox alignment="TOP_CENTER" prefHeight="323.0" prefWidth="840.0">
+                              <VBox alignment="TOP_CENTER" prefHeight="350.0" prefWidth="840.0">
                                  <children>
-                                    <Label text="Simulazione produttiva su una linea a regime">
+                                    <Label text="Testing di una linea produttiva">
                                        <font>
                                           <Font size="14.0" />
                                        </font>
                                     </Label>
                                     <HBox alignment="CENTER" prefHeight="58.0" prefWidth="840.0">
                                        <children>
-                                          <Label text="Selezionare la quantità di prodotto da produrre">
+                                          <Label text="Selezionare la quantità di prodotto da produrre (max 20000 unità)">
                                              <font>
                                                 <Font size="14.0" />
                                              </font>
@@ -268,7 +267,7 @@
                                                             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                                          </VBox.margin>
                                                       </CheckBox>
-                                                      <CheckBox fx:id="boxLinea3" mnemonicParsing="false" text="Linea 3">
+                                                      <CheckBox fx:id="boxLinea3" mnemonicParsing="false" onAction="#handleCheck3" text="Linea 3">
                                                          <font>
                                                             <Font size="14.0" />
                                                          </font>
@@ -308,11 +307,24 @@
                                           <HBox prefHeight="100.0" prefWidth="200.0" />
                                        </children>
                                     </HBox>
-                                    <VBox alignment="CENTER" prefHeight="77.0" prefWidth="840.0">
+                                    <VBox alignment="CENTER" prefHeight="114.0" prefWidth="840.0">
                                        <children>
-                                          <HBox alignment="CENTER" prefHeight="76.0" prefWidth="840.0">
+                                          <HBox alignment="CENTER" prefHeight="36.0" prefWidth="840.0">
                                              <children>
-                                                <Label text="TEMPO CICLO (CT):" />
+                                                <Label text="TEMPO IMPIEGATO:" />
+                                                <Label fx:id="txtTempoImpiegato">
+                                                   <HBox.margin>
+                                                      <Insets left="5.0" />
+                                                   </HBox.margin>
+                                                </Label>
+                                             </children>
+                                          </HBox>
+                                          <HBox alignment="CENTER" prefHeight="36.0" prefWidth="840.0">
+                                             <children>
+                                                <Label text="TEMPO CICLO (CT):">
+                                                   <HBox.margin>
+                                                      <Insets left="30.0" />
+                                                   </HBox.margin></Label>
                                                 <Label fx:id="txtCT">
                                                    <HBox.margin>
                                                       <Insets left="5.0" />
@@ -366,9 +378,6 @@
          <font>
             <Font size="24.0" />
          </font>
-         <graphic>
-            <FlowPane prefHeight="200.0" prefWidth="200.0" />
-         </graphic>
       </Label>
    </top>
 </BorderPane>

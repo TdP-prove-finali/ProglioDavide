@@ -26,7 +26,7 @@ public class Simulazione {
 	//CODA EVENTI
 	private PriorityQueue<Event> queue = new PriorityQueue<Event>();
 	
-	public void Simulazione2(int nws) {
+	/*public void Simulazione2(int nws) {
 		creaLinea(nws);
 		//this.numeroWs = nws;
 		this.TH = 0;
@@ -132,7 +132,7 @@ public class Simulazione {
 					}
 				}*/
 				
-				wk.setTime(wk.getTime() + te); //NON CANCELLARE
+				/*wk.setTime(wk.getTime() + te); //NON CANCELLARE
 				if(!this.jobs.containsKey(wk.getLasJob())) {
 					this.jobs.put(wk.getLasJob(), te+this.jobs.get(wk.getLasJob())); //te+this.jobs.get(wk.getLasJob())
 				}else {
@@ -141,7 +141,7 @@ public class Simulazione {
 			}
 			break;
 		}
-	}
+	}*/
 
 	public double getTH() {
 		this.TH = this.pezziCompletati/(this.linea.get(0).getTime()/3600);

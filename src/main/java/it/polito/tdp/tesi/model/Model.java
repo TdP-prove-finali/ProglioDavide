@@ -72,9 +72,13 @@ public class Model {
 		return this.sim.getSpecifiche();
 	}
 	
-	public void simula() {
+	public void resetLinea() {
+		this.sim = new Simulazione3();
+	}
+	
+	public void simula(int pezziDaProdurre) {
 		//this.sim = new Simulazione3();
-		this.sim.caricaLinea();
+		this.sim.caricaLinea(pezziDaProdurre);
 		this.sim.run();
 		this.sim.calcolaPerformance();
 	}
@@ -93,6 +97,14 @@ public class Model {
 	
 	public double getCT() {
 		return this.sim.getCT();
+	}
+	
+	public double getTempoImpiegato() {
+		return this.sim.getTempoImpiegato();
+	}
+	
+	public double getTempoImpiegatoG() {
+		return this.sim.getTempoImpiegatoG();
 	}
 	
 	/*public ArrayList<Analisi> getBestCase() {

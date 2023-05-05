@@ -17,8 +17,8 @@ public class WorkStation {
 	private double ts; //tempo medio di setup 
 	private double stdvS; // deviazione standard tempo di setup
 	
-	private HashMap<Integer, Double> coda;
-	private int lasJob;
+	/*private HashMap<Integer, Double> coda;
+	private int lasJob;*/
 	private double time;
 	private HashMap<Integer, Double> ingressi;
 	private HashMap<Integer, Double> uscite;
@@ -37,9 +37,9 @@ public class WorkStation {
 		Ns = ns;
 		this.ts = ts;
 		this.stdvS = stdvS;
-		this.coda = new HashMap<Integer, Double>();
+		//this.coda = new HashMap<Integer, Double>();
 		//this.jobs = new HashMap<Integer, Double>();
-		this.lasJob = 0;
+		//this.lasJob = 0;
 		this.time=0;
 		this.ingressi = new HashMap<Integer, Double>();
 		this.uscite = new HashMap<Integer, Double>();
@@ -137,7 +137,7 @@ public class WorkStation {
 		this.stdvS = stdvS;
 	}
 
-	public HashMap<Integer, Double> getCoda() {
+	/*public HashMap<Integer, Double> getCoda() {
 		return coda;
 	}
 
@@ -149,9 +149,9 @@ public class WorkStation {
 		return jobs;
 	}*/
 
-	public void setLasJob(int lasJob) {
+	/*public void setLasJob(int lasJob) {
 		this.lasJob = lasJob;
-	}
+	}*/
 	
 	public HashMap<Integer, Double> getIngressi() {
 		return ingressi;
@@ -163,7 +163,7 @@ public class WorkStation {
 
 	@Override
 	public String toString() {
-		return "WorkStation tempo medio di interarrivo: " + Math.round(tA/3600*100.0)/100.0 + 
+		return "tempo medio di interarrivo: " + Math.round(tA/3600*100.0)/100.0 + 
 				" h\ntempo medio di processo: " + Math.round(t0/60*100.0)/100.0 +
 				" min\ntempo medio tra guasti successivi: " + Math.round(mf/3600*100.0)/100.0 + 
 				" h\ntempo medio di riparazione guasto: " + Math.round(mr/3600*100.0)/100.0 + 

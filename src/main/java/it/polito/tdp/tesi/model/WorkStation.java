@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class WorkStation {
 	
-	private double tA; //tempo medio arrivo
-	private double stdvA; //deviazione standard tempo di arrivo
+	/*private double tA; //tempo medio arrivo
+	private double stdvA;*/ //deviazione standard tempo di arrivo
 	private double t0; //tempo di processo 
 	private double stdv0; //deviazione standard tempi di processo
 	//Fermi macchina non schedulati
@@ -24,11 +24,11 @@ public class WorkStation {
 	private HashMap<Integer, Double> uscite;
 	//private HashMap<Integer, Double> jobs;
 	
-	public WorkStation(double tA, double stdvA, double t0, double stdv0,
+	public WorkStation(/*double tA, double stdvA,*/ double t0, double stdv0,
 			double mf, double mr, double stdvR, int ns, double ts, double stdvS) {
 		super();
-		this.tA = tA;
-		this.stdvA = stdvA;
+		/*this.tA = tA;
+		this.stdvA = stdvA;*/
 		this.t0 = t0;
 		this.stdv0 = stdv0;
 		this.mf = mf;
@@ -57,7 +57,7 @@ public class WorkStation {
 		// TODO Auto-generated constructor stub
 	}
 
-	public double gettA() {
+	/*public double gettA() {
 		return tA;
 	}
 
@@ -71,7 +71,7 @@ public class WorkStation {
 
 	public void setStdvA(double stdvA) {
 		this.stdvA = stdvA;
-	}
+	}*/
 
 	public double getT0() {
 		return t0;
@@ -163,8 +163,8 @@ public class WorkStation {
 
 	@Override
 	public String toString() {
-		return "tempo medio di interarrivo: " + Math.round(tA/3600*100.0)/100.0 + 
-				" h\ntempo medio di processo: " + Math.round(t0/60*100.0)/100.0 +
+		return //"tempo medio di interarrivo: " + Math.round(tA/3600*100.0)/100.0 + 
+				"tempo medio di processo: " + Math.round(t0/60*100.0)/100.0 +
 				" min\ntempo medio tra guasti successivi: " + Math.round(mf/3600*100.0)/100.0 + 
 				" h\ntempo medio di riparazione guasto: " + Math.round(mr/3600*100.0)/100.0 + 
 				" h\nnumero di jobs tra setups consecutivi: " + Ns + 

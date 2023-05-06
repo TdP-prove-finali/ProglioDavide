@@ -11,6 +11,7 @@ public class Simulazione3 {
 	
 	private HashMap<Integer, WorkStation> linea = new HashMap<Integer, WorkStation>();
 	private ArrayList<String> specifiche = new ArrayList<String>();
+	private double tA; //tempo medio arrivo
 	
 	private double TH = 0;
 	private double CT = 0;
@@ -30,29 +31,38 @@ public class Simulazione3 {
 	public void scegliLinea(int scelta) {
 		switch (scelta) {
 			case 1:
-				this.linea.put(1, new WorkStation(3600, 4318.5, 2000, 2700, 28800, 3000, 3600,
+				this.tA = 3600;
+				this.specifiche.add("tempo interarrivo medio della linea: "+Math.round(this.tA/3600*100.0)/100.0
+						+" h\nnumero workstation: "+2+"\n");
+				this.linea.put(1, new WorkStation(/*3600, 4318.5,*/ 2000, 2700, 28800, 3000, 3600,
 					10, 1200, 2400));
-				this.linea.put(2, new WorkStation(3600, 4318.5, 1800, 2700, 28800, 2500, 3600,
+				this.linea.put(2, new WorkStation(/*3600, 4318.5,*/ 1800, 2700, 28800, 2500, 3600,
 					30, 1200, 2400));
 				for(int i=1; i<=this.linea.size(); i++) {
 					this.specifiche.add("WORKSTATION "+i+"\n"+this.linea.get(i).toString());
 				}
 			break;
 			case 2:
-				this.linea.put(1, new WorkStation(20000, 4318.5, 10000, 2700, 98000, 15000, 3600,
+				this.tA = 20000;
+				this.specifiche.add("tempo interarrivo medio della linea: "+Math.round(this.tA/3600*100.0)/100.0
+						+" h\nnumero workstation: "+2+"\n");
+				this.linea.put(1, new WorkStation(/*20000, 4318.5,*/ 10000, 2700, 98000, 15000, 3600,
 					10, 10000, 2400));
-				this.linea.put(2, new WorkStation(30000, 4318.5, 10000, 2700, 128800, 15000, 3600,
+				this.linea.put(2, new WorkStation(/*30000, 4318.5,*/ 10000, 2700, 128800, 15000, 3600,
 						10, 10000, 2400));
 				for(int i=1; i<=this.linea.size(); i++) {
 					this.specifiche.add("WORKSTATION "+i+"\n"+this.linea.get(i).toString());
 				}
 			break;
 			case 3:
-				this.linea.put(1, new WorkStation(7000, 4318.5, 3000, 2700, 150000, 7000, 3600,
+				this.tA = 7000;
+				this.specifiche.add("tempo interarrivo medio della linea: "+Math.round(this.tA/3600*100.0)/100.0
+						+" h\nnumero workstation: "+3+"\n");
+				this.linea.put(1, new WorkStation(/*7000, 4318.5,*/ 3000, 2700, 150000, 7000, 3600,
 					25, 2000, 2400));
-				this.linea.put(2, new WorkStation(7000, 4318.5, 5000, 2700, 130000, 4000, 3600,
+				this.linea.put(2, new WorkStation(/*7000, 4318.5,*/ 5000, 2700, 130000, 4000, 3600,
 						10, 5000, 2400));
-				this.linea.put(3, new WorkStation(7000, 4318.5, 6000, 2700, 100000, 5000, 3600,
+				this.linea.put(3, new WorkStation(/*7000, 4318.5,*/ 6000, 2700, 100000, 5000, 3600,
 						17, 5000, 2400));
 				for(int i=1; i<=this.linea.size(); i++) {
 					this.specifiche.add("WORKSTATION "+i+"\n"+this.linea.get(i).toString());
@@ -90,7 +100,7 @@ public class Simulazione3 {
 		for(int nProd=1; nProd<=this.pezziDaProdurre; nProd++) {
 			this.queue.add(new Event(t, EventType.NUOVO_JOB, nProd, 1));
 			if(nProd!=this.pezziDaProdurre) {
-				t = t + this.getPoisson(wk.gettA()/60)*60;
+				t = t + this.getPoisson(/*wk.gettA()*/this.tA/60)*60;
 			}
 		}
 		//

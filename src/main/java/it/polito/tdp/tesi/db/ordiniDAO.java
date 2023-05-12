@@ -135,10 +135,15 @@ public class ordiniDAO {
 	public ArrayList<String> getProdByYear(int anno){
 		try {
 			Connection conn = DBconnect.getConnection();
+			/*String sql = "SELECT DISTINCT id_prod "
+					+ "FROM ordini "
+					+ "WHERE YEAR(DATE) = ? "
+					+ "GROUP BY id_prod";*/
 			String sql = "SELECT DISTINCT id_prod "
 					+ "FROM ordini "
 					+ "WHERE YEAR(DATE) = ? "
-					+ "GROUP BY id_prod";
+					+ "GROUP BY id_prod "
+					+ "HAVING COUNT(*) >= 200";
 			PreparedStatement st = conn.prepareStatement(sql);
 			st.setString(1, String.valueOf(anno));
 			ResultSet res = st.executeQuery();

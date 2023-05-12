@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 
+import org.apache.commons.math3.exception.NotStrictlyPositiveException;
+
 import it.polito.tdp.tesi.model.Analisi;
 import it.polito.tdp.tesi.model.Domanda;
 import it.polito.tdp.tesi.model.Model;
@@ -264,9 +266,9 @@ public class FXMLController {
     	int qtaDaProdurre;
     	try {
     		qtaDaProdurre = Integer.parseInt(this.txtQtaProd.getText());
-    		if(qtaDaProdurre>20000) {
-    			this.txtErrorSim.setText("Inserire un numero inferiore a 20000!");
-    			System.out.println("Inserire un numero inferiore a 20000!");
+    		if(qtaDaProdurre>10000) {
+    			this.txtErrorSim.setText("Inserire un numero inferiore a 10000!");
+    			System.out.println("Inserire un numero inferiore a 10000!");
     			return;
     		}
     	}catch(NumberFormatException e) {
@@ -339,7 +341,7 @@ public class FXMLController {
     		CT.setName("CT linea");
     		this.chartThWip.getData().add(TH);
     		this.chartCtWip.getData().add(CT);*/
-    	}catch(NullPointerException e) {
+    	}catch(/*NullPointerException*/ NotStrictlyPositiveException e) {
     		this.txtErrorSim.setText("Selezionare la linea da testare!");
     		System.out.println("Selezionare la linea da testare!");
     		//e.printStackTrace();

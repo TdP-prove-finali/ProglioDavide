@@ -10,6 +10,7 @@ public class WorkStation {
 	private double stdv0; //deviazione standard tempi di processo
 	//Fermi macchina non schedulati
 	private double mf; //tempo medio tra guasti successivi
+	private double stdvF; //deviazione standard tempo tra guasti successivi
 	private double mr; //tempo medio di riparazione guasto 
 	private double stdvR; //deviazione standard tempo di riparazione
 	//Fermi macchina schedulati
@@ -25,13 +26,14 @@ public class WorkStation {
 	//private HashMap<Integer, Double> jobs;
 	
 	public WorkStation(/*double tA, double stdvA,*/ double t0, double stdv0,
-			double mf, double mr, double stdvR, int ns, double ts, double stdvS) {
+			double mf, double stdvF, double mr, double stdvR, int ns, double ts, double stdvS) {
 		super();
 		/*this.tA = tA;
 		this.stdvA = stdvA;*/
 		this.t0 = t0;
 		this.stdv0 = stdv0;
 		this.mf = mf;
+		this.stdvF = stdvF;
 		this.mr = mr;
 		this.stdvR = stdvR;
 		Ns = ns;
@@ -95,6 +97,14 @@ public class WorkStation {
 
 	public void setMf(double mf) {
 		this.mf = mf;
+	}
+
+	public double getStdvF() {
+		return stdvF;
+	}
+
+	public void setStdvF(double stdvF) {
+		this.stdvF = stdvF;
 	}
 
 	public double getMr() {

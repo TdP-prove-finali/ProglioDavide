@@ -2,17 +2,14 @@ package it.polito.tdp.tesi;
 
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.ResourceBundle;
 
 import org.apache.commons.math3.exception.NotStrictlyPositiveException;
 
-import it.polito.tdp.tesi.model.Analisi;
 import it.polito.tdp.tesi.model.Domanda;
 import it.polito.tdp.tesi.model.Model;
 import it.polito.tdp.tesi.model.Produzione;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
@@ -23,11 +20,6 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.chart.CategoryAxis;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.NumberAxis;
-import javafx.scene.chart.XYChart;
-import javafx.scene.chart.XYChart.Data;
 
 public class FXMLController {
 
@@ -287,6 +279,7 @@ public class FXMLController {
     		this.txtCT.setText(String.valueOf(this.model.getCT())+" h");
     		this.txtTH.setText(String.valueOf(this.model.getTH())+" unità/h");
     		this.txtWIP.setText(String.valueOf(this.model.getWIP())+" unità");
+    		
     		/*this.txtCT.setText(null);
     		this.chartThWip.getData().clear();
     		this.chartCtWip.getData().clear();

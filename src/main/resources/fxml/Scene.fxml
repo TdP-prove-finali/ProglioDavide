@@ -14,9 +14,10 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="573.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.tesi.FXMLController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="606.0" prefWidth="850.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polito.tdp.tesi.FXMLController">
    <center>
       <VBox alignment="TOP_CENTER" prefHeight="882.0" prefWidth="850.0" BorderPane.alignment="CENTER">
          <children>
@@ -24,8 +25,16 @@
               <content>
                 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="881.0" prefWidth="840.0">
                      <children>
-                        <VBox prefHeight="875.0" prefWidth="840.0">
+                        <VBox alignment="CENTER" prefHeight="875.0" prefWidth="840.0">
                            <children>
+                              <Label style="-fx-text-fill: green;" text="SCHEDULAZIONE PRODUTTIVA">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                                 <VBox.margin>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </VBox.margin>
+                              </Label>
                               <HBox alignment="CENTER" prefHeight="178.0" prefWidth="840.0">
                                  <children>
                                     <VBox alignment="CENTER" prefHeight="154.0" prefWidth="301.0">
@@ -147,7 +156,7 @@
                                                             <Font size="14.0" />
                                                          </font>
                                                       </Label>
-                                                      <TableView fx:id="tabSchedOttima" prefHeight="239.0" prefWidth="674.0">
+                                                      <TableView fx:id="tabSchedOttima" prefHeight="191.0" prefWidth="625.0">
                                                         <columns>
                                                           <TableColumn fx:id="colMese" editable="false" prefWidth="89.59997403621674" sortable="false" text="Mese" />
                                                           <TableColumn fx:id="colOrd" prefWidth="259.2000198364258" text="Qta prod ordinaria" />
@@ -213,12 +222,16 @@
                                     </VBox>
                                  </children>
                               </HBox>
+                              <Line endX="100.0" startX="-737.5263061523438" startY="1.6929175853729248" stroke="#c1c4c1" strokeWidth="2.0" />
                               <VBox alignment="TOP_CENTER" prefHeight="350.0" prefWidth="840.0">
                                  <children>
-                                    <Label text="Testing di una linea produttiva">
+                                    <Label style="-fx-text-fill: green;" text="SIMULAZIONE PRODUTTIVA">
                                        <font>
-                                          <Font size="14.0" />
+                                          <Font size="16.0" />
                                        </font>
+                                       <VBox.margin>
+                                          <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                       </VBox.margin>
                                     </Label>
                                     <HBox alignment="CENTER" prefHeight="58.0" prefWidth="840.0">
                                        <children>
@@ -374,7 +387,7 @@
       </VBox>
    </center>
    <top>
-      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="627.0" text="Software per la schedulazione e la simulazione produttiva" textAlignment="CENTER" textFill="#19b12d" BorderPane.alignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="62.0" prefWidth="860.0" style="-fx-background-color: green;" text="Software per la schedulazione e la simulazione produttiva" textAlignment="CENTER" textFill="WHITE" BorderPane.alignment="CENTER">
          <font>
             <Font size="24.0" />
          </font>

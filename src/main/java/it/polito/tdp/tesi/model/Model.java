@@ -46,7 +46,7 @@ public class Model {
 		for(Produzione p : this.lS.getSchedOttima()) {
 			totPezziProdotti = totPezziProdotti + p.getQtaProdOrd() + p.getQtaProdStraord() + p.getQtaProdEst();
 		}
-		return totPezziProdotti*prezzo-this.lS.getCostoTot();
+		return Math.round((totPezziProdotti*prezzo-this.lS.getCostoTot())*1000.0)/1000.0;
 	}
 	
 	public ArrayList<String> scegliLinea(int scelta){

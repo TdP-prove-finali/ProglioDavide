@@ -41,7 +41,5 @@ public class Disposizione {
 	public String toString() {
 		return "Mese: " + mese + ", qta: " + qta + ", tipo: " + tipo +"\n";
 	}
-	
-	
 
 }

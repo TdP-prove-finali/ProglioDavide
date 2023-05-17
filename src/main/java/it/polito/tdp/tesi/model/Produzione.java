@@ -19,7 +19,7 @@ public class Produzione {
 	}
 
 	public Produzione() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public int getQtaProdOrd() {

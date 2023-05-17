@@ -14,59 +14,6 @@ import it.polito.tdp.tesi.model.Domanda;
 
 public class ordiniDAO {
 	
-	/*public ArrayList<ordineProduttivo> ordiniProdotto(String idProdotto){
-		try {
-			Connection conn = DBconnect.getConnection();
-			String sql = "SELECT * FROM ordini WHERE id_prod = ?";
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, idProdotto);
-			ResultSet res = st.executeQuery();
-			ArrayList<ordineProduttivo> ordini = new ArrayList<ordineProduttivo>();
-			while(res.next()) {
-				int idOrdine = res.getInt("id_order");
-				int idCliente = res.getInt("id_costumer");
-				LocalDate data = res.getDate("date").toLocalDate();
-				String idProd = res.getString("id_prod");
-				ordini.add(new ordineProduttivo(idOrdine, idCliente, data, idProd));
-			}
-			st.close(); 
-			conn.close();
-			return ordini;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}
-	
-	public HashMap<Integer, Integer> getQtaProdottoMese(String idProdotto, int anno){
-		try {
-			Connection conn = DBconnect.getConnection();
-			String sql = "SELECT id_prod, MONTH(DATE) AS month, COUNT(id_order) AS qtaProd "
-					+ "FROM ordini WHERE id_prod = ? AND YEAR(DATE) = ? GROUP BY MONTH(DATE)";
-			PreparedStatement st = conn.prepareStatement(sql);
-			st.setString(1, idProdotto);
-			LocalDate data = LocalDate.of(anno, 1, 1);
-			st.setDate(2, Date.valueOf(data));
-			ResultSet res = st.executeQuery();
-			HashMap<Integer, Integer> ordini = new HashMap<Integer, Integer>();
-			while(res.next()) {
-				String prodotto = idProdotto;
-				int mese = res.getInt("month");
-				int qtaProd = res.getInt("qtaProd");
-				ordini.put(mese, qtaProd);
-			}
-			st.close(); 
-			conn.close();
-			return ordini;
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return null;
-		}
-	}*/
-	
-	//Per LotSizing2
 	public ArrayList<Domanda> getDomandaMese(String idProdotto, int anno){
 		try {
 			Connection conn = DBconnect.getConnection();
@@ -84,7 +31,6 @@ public class ordiniDAO {
 				int qtaProd = res.getInt("qtaProd");
 				domanda.add(new Domanda(mese, qtaProd));
 			}
-			//
 			ArrayList<Domanda> domandaTot = new ArrayList<Domanda>();
 			for(int i=1; i<13; i++) {
 				int j=-1;
@@ -99,17 +45,14 @@ public class ordiniDAO {
 					domandaTot.add(domanda.get(j));
 				}
 			}
-			//
 			st.close(); 
 			conn.close();
 			return domandaTot;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
 	}
-	//
 	
 	public ArrayList<Integer> getYears(){
 		try {
@@ -126,7 +69,6 @@ public class ordiniDAO {
 			conn.close();
 			return anni;
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}
@@ -135,10 +77,6 @@ public class ordiniDAO {
 	public ArrayList<String> getProdByYear(int anno){
 		try {
 			Connection conn = DBconnect.getConnection();
-			/*String sql = "SELECT DISTINCT id_prod "
-					+ "FROM ordini "
-					+ "WHERE YEAR(DATE) = ? "
-					+ "GROUP BY id_prod";*/
 			String sql = "SELECT DISTINCT id_prod "
 					+ "FROM ordini "
 					+ "WHERE YEAR(DATE) = ? "
@@ -155,7 +93,6 @@ public class ordiniDAO {
 			conn.close();
 			return prodotti;
 		}catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return null;
 		}

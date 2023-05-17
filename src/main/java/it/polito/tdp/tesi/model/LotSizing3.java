@@ -33,7 +33,7 @@ public class LotSizing3 {
 		this.costoStoccaggio = costoStoccaggio;
 		
 		for(Domanda d : domanda) {
-			System.out.println(d.toString());
+			//System.out.println(d.toString());
 			if(d.getQta()<=this.capacitaOrd) {
 				this.situazioneIniziale.add(new Produzione(d.getMese(), d.getQta(), 0, 0));
 				this.schedOttima.add(new Produzione(d.getMese(), d.getQta(), 0, 0));
@@ -50,15 +50,6 @@ public class LotSizing3 {
 				domanda.get(d.getMese()-1).setQta(d.getQta()-(this.capacitaOrd+this.capacitaStraord));
 			}
 		}
-		
-		/*System.out.println();
-		for(Domanda d : domanda) {
-			System.out.println(d.toString());
-		}
-		System.out.println();
-		for(Produzione p : this.schedOttima) {
-			System.out.println(p.toString());
-		}*/
 		
 		for(Domanda d : domanda) {
 			if(d.getQta()>0) {
@@ -80,7 +71,7 @@ public class LotSizing3 {
 					i++;
 					contaMesi--;
 				}
-				this.ctTot = this.ctTot + calcolaCostoIniziale(this.situazioneIniziale.get(d.getMese()-1)); //0
+				this.ctTot = this.ctTot + calcolaCostoIniziale(this.situazioneIniziale.get(d.getMese()-1)); 
 				this.ctMin = Double.MAX_VALUE;
 				schedula(parziale,d,0);
 				this.ctTot = this.ctTot+this.ctMin;
@@ -90,11 +81,11 @@ public class LotSizing3 {
 			}
 		}
 		
-		System.out.println();
+		/*System.out.println();
 		for(Produzione p : this.schedOttima) {
 			System.out.println(p.toString());
 		}
-		System.out.println("Costo piano produttivo minimo: "+this.ctTot);
+		System.out.println("Costo piano produttivo minimo: "+this.ctTot);*/
 	}
 
 	private void schedula(ArrayList<Disposizione> parziale, Domanda d, int slotProduttivo) {
@@ -199,6 +190,6 @@ public class LotSizing3 {
 	}
 	
 	public double getCostoTot() {
-		return this.ctTot;
+		return Math.round(this.ctTot*1000.0)/1000.0;
 	}
 }

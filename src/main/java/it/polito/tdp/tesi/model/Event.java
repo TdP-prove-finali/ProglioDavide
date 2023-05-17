@@ -93,8 +93,7 @@ public class Event implements Comparable<Event>{
 
 	@Override
 	public int compareTo(Event other) {
-		if(this.getTempo()==other.getTempo() /*&& this.getType()==EventType.NUOVO_JOB 
-				&& other.getType()==EventType.NUOVO_JOB*/) {
+		if(this.getTempo()==other.getTempo()) {
 			return this.getnProd()-other.getnProd();
 		}else { 
 			return (int) (this.getTempo()-other.getTempo());
@@ -105,8 +104,5 @@ public class Event implements Comparable<Event>{
 	public String toString() {
 		return "tempo: " + tempo + ", type: " + type + ", nProd: " + nProd + ", wk: " + wk + "\n";
 	}
-	
-	
-	
 
 }

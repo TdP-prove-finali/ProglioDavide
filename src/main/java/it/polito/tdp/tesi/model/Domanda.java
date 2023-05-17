@@ -32,6 +32,4 @@ public class Domanda {
 		return "Mese: " + mese + ", domanda:" + qta;
 	}
 	
-	
-
 }

@@ -125,21 +125,7 @@ public class FXMLController {
     
     @FXML
     private Label txtWIP;
-    
-    /*@FXML
-    private LineChart<String, Double> chartThWip;
-    
-    @FXML
-    private LineChart<String, Double> chartCtWip;*/
 
-
-    /*@FXML
-    private NumberAxis th;
-    
-    @FXML
-    private CategoryAxis wip;*/
-
-    
     @FXML
     void handleAnno(ActionEvent event) {
     	this.comboProduct.getItems().clear();
@@ -170,14 +156,14 @@ public class FXMLController {
 		    		schedOttima = this.model.lotSizing(this.domanda, capOrd, capStraord, ctOrd, ctStrord, ctEst, ctStock);
 		    		this.tabSchedOttima.getItems().clear();
 		    		this.tabSchedOttima.setItems(FXCollections.observableArrayList(schedOttima));
-		    		this.txtCtGest.setText(Double.toString(this.model.getCostoSchedOttima()));
-		    		this.txtProfit.setText(Double.toString(this.model.calcolaProfitto(prezzo)));
+		    		this.txtCtGest.setText(Double.toString(this.model.getCostoSchedOttima())+" €");
+		    		this.txtProfit.setText(Double.toString(this.model.calcolaProfitto(prezzo))+" €");
 	    	    }
     		}catch(NullPointerException e) {
     			this.txtErrorSched.setText("Selezionare anno e prodotto d'interesse nella sezione precedente!");
     		}
     	}catch(NumberFormatException e) {
-    		this.txtErrorSched.setText("Completare i campi con valori numerici!");
+    		this.txtErrorSched.setText("Completare i campi con valori numerici, per le capacità interi!");
     		return;
     	}
     }
@@ -260,12 +246,12 @@ public class FXMLController {
     		qtaDaProdurre = Integer.parseInt(this.txtQtaProd.getText());
     		if(qtaDaProdurre>10000) {
     			this.txtErrorSim.setText("Inserire un numero inferiore a 10000!");
-    			System.out.println("Inserire un numero inferiore a 10000!");
+    			//System.out.println("Inserire un numero inferiore a 10000!");
     			return;
     		}
     	}catch(NumberFormatException e) {
     		this.txtErrorSim.setText("Introdurre un numero intero di pezzi da produrre!");
-    		System.out.println("Introdurre un numero intero di pezzi da produrre!");
+    		//System.out.println("Introdurre un numero intero di pezzi da produrre!");
     		return;
     	}
     	try {
@@ -280,64 +266,9 @@ public class FXMLController {
     		this.txtTH.setText(String.valueOf(this.model.getTH())+" unità/h");
     		this.txtWIP.setText(String.valueOf(this.model.getWIP())+" unità");
     		
-    		/*this.txtCT.setText(null);
-    		this.chartThWip.getData().clear();
-    		this.chartCtWip.getData().clear();
-    		
-    		this.model.simula();
-    		
-    		this.txtCT.setText(String.valueOf(this.model.getCT()));
-    		this.txtTH.setText(String.valueOf(this.model.getTH()));
-    		this.txtWIP.setText(String.valueOf(this.model.getWIP()));
-    		
-    		XYChart.Series<String, Double> bestCase1 = new XYChart.Series<String, Double>();
-    		XYChart.Series<String, Double> bestCase2 = new XYChart.Series<String, Double>();
-    		XYChart.Series<String, Double> worstCase1 = new XYChart.Series<String, Double>();
-    		XYChart.Series<String, Double> worstCase2 = new XYChart.Series<String, Double>();
-    		XYChart.Series<String, Double> practWorstCase1 = new XYChart.Series<String, Double>();
-    		XYChart.Series<String, Double> practWorstCase2 = new XYChart.Series<String, Double>();
-    		XYChart.Series<String, Double> TH = new XYChart.Series<String, Double>();
-    		XYChart.Series<String, Double> CT = new XYChart.Series<String, Double>();
-    		ArrayList<Analisi> best1 = new ArrayList<Analisi>();
-    		ArrayList<Analisi> worst1 = new ArrayList<Analisi>();
-    		ArrayList<Analisi> practWorst1 = new ArrayList<Analisi>();
-    		/*best1 = this.model.getBestCase();
-    		worst1 = this.model.getWorstCase();
-    		practWorst1 = this.model.getPracticalWorstCase();
-    		for(Analisi a : best1) {
-    			bestCase1.getData().add(new XYChart.Data<String, Double>(String.valueOf(a.getW()),a.getTH()));
-    			bestCase2.getData().add(new XYChart.Data<String, Double>(String.valueOf(a.getW()),a.getCT()));
-    		}
-    		bestCase1.setName("best case");
-    		bestCase2.setName("best case");
-    		for(Analisi a : worst1) {
-    			worstCase1.getData().add(new XYChart.Data<String, Double>(String.valueOf(a.getW()),a.getTH()));
-    			worstCase2.getData().add(new XYChart.Data<String, Double>(String.valueOf(a.getW()),a.getCT()));
-    		}
-    		worstCase1.setName("worst case");
-    		worstCase2.setName("worst case");
-    		for(Analisi a : practWorst1) {
-    			practWorstCase1.getData().add(new XYChart.Data<String, Double>(String.valueOf(a.getW()),a.getTH()));
-    			practWorstCase2.getData().add(new XYChart.Data<String, Double>(String.valueOf(a.getW()),a.getCT()));
-    		}
-    		practWorstCase1.setName("practical worst case");
-    		practWorstCase2.setName("practical worst case");
-    		this.chartThWip.getData().add(bestCase1);
-    		this.chartCtWip.getData().add(bestCase2);
-    		this.chartThWip.getData().add(worstCase1);
-    		this.chartCtWip.getData().add(worstCase2);
-    		this.chartThWip.getData().add(practWorstCase1);
-    		this.chartCtWip.getData().add(practWorstCase2);
-    		TH.getData().add(new XYChart.Data<String, Double>(String.valueOf(this.model.getWipInt()), this.model.getTH()));
-    		CT.getData().add(new XYChart.Data<String, Double>(String.valueOf(this.model.getWipInt()), this.model.getCT()));
-    		TH.setName("TH linea");
-    		CT.setName("CT linea");
-    		this.chartThWip.getData().add(TH);
-    		this.chartCtWip.getData().add(CT);*/
-    	}catch(/*NullPointerException*/ NotStrictlyPositiveException e) {
+    	}catch(NotStrictlyPositiveException e) {
     		this.txtErrorSim.setText("Selezionare la linea da testare!");
-    		System.out.println("Selezionare la linea da testare!");
-    		//e.printStackTrace();
+    		//System.out.println("Selezionare la linea da testare!");
     		return;
     	}
     }
@@ -375,10 +306,6 @@ public class FXMLController {
         assert txtCT != null : "fx:id=\"txtCT\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtTH != null : "fx:id=\"txtTH\" was not injected: check your FXML file 'Scene.fxml'.";
         assert txtWIP != null : "fx:id=\"txtWIP\" was not injected: check your FXML file 'Scene.fxml'.";
-        //assert chartThWip != null : "fx:id=\"chartThWip\" was not injected: check your FXML file 'Scene.fxml'.";
-        //assert chartCtWip != null : "fx:id=\"chartCtWip\" was not injected: check your FXML file 'Scene.fxml'.";
-        //assert th != null : "fx:id=\"th\" was not injected: check your FXML file 'Scene.fxml'.";
-        //assert wip != null : "fx:id=\"wip\" was not injected: check your FXML file 'Scene.fxml'.";
 
         this.colDemand.setCellValueFactory(new PropertyValueFactory<Domanda,Integer>("qta"));
         this.colMonth.setCellValueFactory(new PropertyValueFactory<Domanda,Integer>("mese"));

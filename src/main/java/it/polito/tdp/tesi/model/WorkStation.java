@@ -4,8 +4,6 @@ import java.util.HashMap;
 
 public class WorkStation {
 	
-	/*private double tA; //tempo medio arrivo
-	private double stdvA;*/ //deviazione standard tempo di arrivo
 	private double t0; //tempo di processo 
 	private double stdv0; //deviazione standard tempi di processo
 	//Fermi macchina non schedulati
@@ -18,18 +16,13 @@ public class WorkStation {
 	private double ts; //tempo medio di setup 
 	private double stdvS; // deviazione standard tempo di setup
 	
-	/*private HashMap<Integer, Double> coda;
-	private int lasJob;*/
 	private double time;
 	private HashMap<Integer, Double> ingressi;
 	private HashMap<Integer, Double> uscite;
-	//private HashMap<Integer, Double> jobs;
 	
-	public WorkStation(/*double tA, double stdvA,*/ double t0, double stdv0,
+	public WorkStation(double t0, double stdv0,
 			double mf, double stdvF, double mr, double stdvR, int ns, double ts, double stdvS) {
 		super();
-		/*this.tA = tA;
-		this.stdvA = stdvA;*/
 		this.t0 = t0;
 		this.stdv0 = stdv0;
 		this.mf = mf;
@@ -39,9 +32,6 @@ public class WorkStation {
 		Ns = ns;
 		this.ts = ts;
 		this.stdvS = stdvS;
-		//this.coda = new HashMap<Integer, Double>();
-		//this.jobs = new HashMap<Integer, Double>();
-		//this.lasJob = 0;
 		this.time=0;
 		this.ingressi = new HashMap<Integer, Double>();
 		this.uscite = new HashMap<Integer, Double>();
@@ -56,24 +46,8 @@ public class WorkStation {
 	}
 
 	public WorkStation() {
-		// TODO Auto-generated constructor stub
+		
 	}
-
-	/*public double gettA() {
-		return tA;
-	}
-
-	public void settA(double tA) {
-		this.tA = tA;
-	}
-
-	public double getStdvA() {
-		return stdvA;
-	}
-
-	public void setStdvA(double stdvA) {
-		this.stdvA = stdvA;
-	}*/
 
 	public double getT0() {
 		return t0;
@@ -146,22 +120,6 @@ public class WorkStation {
 	public void setStdvS(double stdvS) {
 		this.stdvS = stdvS;
 	}
-
-	/*public HashMap<Integer, Double> getCoda() {
-		return coda;
-	}
-
-	public int getLasJob() {
-		return lasJob;
-	}
-
-	/*public HashMap<Integer, Double> getJobs() {
-		return jobs;
-	}*/
-
-	/*public void setLasJob(int lasJob) {
-		this.lasJob = lasJob;
-	}*/
 	
 	public HashMap<Integer, Double> getIngressi() {
 		return ingressi;
@@ -173,8 +131,7 @@ public class WorkStation {
 
 	@Override
 	public String toString() {
-		return //"tempo medio di interarrivo: " + Math.round(tA/3600*100.0)/100.0 + 
-				"tempo medio di processo: " + Math.round(t0/60*100.0)/100.0 +
+		return "tempo medio di processo: " + Math.round(t0/60*100.0)/100.0 +
 				" min\ntempo medio tra guasti successivi: " + Math.round(mf/3600*100.0)/100.0 + 
 				" h\ntempo medio di riparazione guasto: " + Math.round(mr/3600*100.0)/100.0 + 
 				" h\nnumero di jobs tra setups consecutivi: " + Ns + 

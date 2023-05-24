@@ -1,6 +1,8 @@
 package it.polito.tdp.tesi.model;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 import java.util.Random;
@@ -18,9 +20,10 @@ public class Simulazione3 {
 	private double TH = 0;
 	private double CT = 0;
 	private double WIP = 0;
-	private double rb;
-	private double T0;
-	private double W0;
+	//STATISTICHE AGGIUNTIVE
+	/*private double rb; //COLLO DI BOTTIGLIA
+	private double T0; //TEMPO CICLO IDEALE
+	private double W0;*/ //WIP CRITICO
 	private double tempoImpiegato;
 	
 	private PriorityQueue<Event> queue = new PriorityQueue<Event>();
@@ -74,9 +77,9 @@ public class Simulazione3 {
 		this.CT=0;
 		this.TH=0;
 		this.WIP=0;
-		this.rb=0;
+		/*this.rb=0;
 		this.T0=0;
-		this.W0=0;
+		this.W0=0;*/
 		this.queue = new PriorityQueue<Event>();
 		this.pezziCompletati=0;
 		this.tempoImpiegato=0;
@@ -193,10 +196,39 @@ public class Simulazione3 {
 			this.CT = this.CT + uscite.get(i)-ingressi.get(i);
 		}
 		this.CT = (this.CT/3600)/this.pezziCompletati;
-		this.WIP = this.CT * this.TH;
-		//System.out.println("Tempo impiegato: "+this.tempoImpiegato+" h, che equivalgono a "+this.tempoImpiegato/24+" giorni");
-		//System.out.println("TH: "+this.TH+"\nCT: "+this.CT+"\nWIP: "+this.WIP+"\n");
-		double rb = Double.MAX_VALUE;
+		ArrayList<Double> history = new ArrayList<Double>();
+		for(int job : ingressi.keySet()) {
+			history.add(ingressi.get(job));
+		}
+		for(int job : uscite.keySet()) {
+			history.add(-uscite.get(job));
+		}
+		Collections.sort(history, new Comparator<Double>() {
+			@Override
+			public int compare(Double d1, Double d2) {
+				d1 = Math.abs(d1);
+				d2 = Math.abs(d2);
+				return d1.compareTo(d2);
+			}
+		});
+		int jobs = 0;
+		double tempoTot = 0;
+		int maxWip = 0;
+		for(int i=0; i<history.size()-1; i++) {
+			if(history.get(i)>=0) {
+				jobs++;
+			}else {
+				jobs--;
+			}
+			if(maxWip<jobs) {
+				maxWip = jobs;
+			}
+			tempoTot = tempoTot + (Math.abs(history.get(i+1))-Math.abs(history.get(i)))/3600;
+			this.WIP = this.WIP + jobs * (Math.abs(history.get(i+1))-Math.abs(history.get(i)))/3600;
+		}
+		this.WIP = this.WIP/tempoTot;
+		//CALCOLO ALTRE STATISTICHE LINEA
+		/*double rb = Double.MAX_VALUE;
 		double T0 = 0;
 		for(WorkStation wk : this.linea.values()) {
 			double c = 1/(wk.getT0()/3600);
@@ -205,10 +237,10 @@ public class Simulazione3 {
 			}
 			T0 = T0 + wk.getT0()/3600;
 		}
-		this.rb = rb;
-		this.T0 = T0;
-		this.W0 = rb * T0;
-		//System.out.println("rb: "+this.rb+"\nT0: "+this.T0+"\nW0: "+this.W0);
+		this.rb = rb; //COLLO DI BOTTIGLIA
+		this.T0 = T0; //TEMPO IDEALE
+		this.W0 = rb * T0; //WIP CRITICO
+		System.out.println("rb: "+this.rb+"\nT0: "+this.T0+"\nW0: "+this.W0);*/
 	}
 	
 	public double getTH(){

@@ -144,27 +144,31 @@ public class FXMLController {
     		double ctEst = Double.parseDouble(this.txtCtEst.getText());
     		double ctStock = Double.parseDouble(this.txtCtStock.getText());
     		double prezzo = Double.parseDouble(this.txtPrezzo.getText());
-    		ArrayList<Produzione> schedOttima = new ArrayList<Produzione>();
-    		try {
-	    		int anno = this.comboYear.getValue();
-	    	    String idProd = this.comboProduct.getValue();
-	    	    if(idProd.equals(null)) {
-	    	    	this.txtErrorSched.setText("Selezionare anno e prodotto d'interesse nella sezione precedente!");
-	    	    }else {
-	    	    	if(ctOrd<ctStraord && ctStraord<ctEst && ctOrd<ctEst) {
-		    	    	this.txtErrorSched.setText(null);
-			    	    this.domanda = this.model.getDomandaMensile(idProd, anno);
-			    		schedOttima = this.model.lotSizing(this.domanda, capOrd, capStraord, ctOrd, ctStraord, ctEst, ctStock);
-			    		this.tabSchedOttima.getItems().clear();
-			    		this.tabSchedOttima.setItems(FXCollections.observableArrayList(schedOttima));
-			    		this.txtCtGest.setText(Double.toString(this.model.getCostoSchedOttima())+" €");
-			    		this.txtProfit.setText(Double.toString(this.model.calcolaProfitto(prezzo))+" €");
-	    	    	}else {
-	    	    		this.txtErrorSched.setText("costo prod ord < costo prod straord < costo prod esterna !");
-	    	    	}
-	    	    }
-    		}catch(NullPointerException e) {
-    			this.txtErrorSched.setText("Selezionare anno e prodotto d'interesse nella sezione precedente!");
+    		if(capOrd<0 || capStraord<0 || ctOrd<0 || ctStraord<0 || ctEst<0 || ctStock<0 || prezzo<0) {
+    			this.txtErrorSched.setText("Completare i campi con valori numerici positivi!");
+    		}else {
+	    		ArrayList<Produzione> schedOttima = new ArrayList<Produzione>();
+	    		try {
+		    		int anno = this.comboYear.getValue();
+		    	    String idProd = this.comboProduct.getValue();
+		    	    if(idProd.equals(null)) {
+		    	    	this.txtErrorSched.setText("Selezionare anno e prodotto d'interesse nella sezione precedente!");
+		    	    }else {
+		    	    	if(ctOrd<ctStraord && ctStraord<ctEst && ctOrd<ctEst) {
+			    	    	this.txtErrorSched.setText(null);
+				    	    this.domanda = this.model.getDomandaMensile(idProd, anno);
+				    		schedOttima = this.model.lotSizing(this.domanda, capOrd, capStraord, ctOrd, ctStraord, ctEst, ctStock);
+				    		this.tabSchedOttima.getItems().clear();
+				    		this.tabSchedOttima.setItems(FXCollections.observableArrayList(schedOttima));
+				    		this.txtCtGest.setText(Double.toString(this.model.getCostoSchedOttima())+" €");
+				    		this.txtProfit.setText(Double.toString(this.model.calcolaProfitto(prezzo))+" €");
+		    	    	}else {
+		    	    		this.txtErrorSched.setText("costo prod ord < costo prod straord < costo prod esterna !");
+		    	    	}
+		    	    }
+	    		}catch(NullPointerException e) {
+	    			this.txtErrorSched.setText("Selezionare anno e prodotto d'interesse nella sezione precedente!");
+	    		}
     		}
     	}catch(NumberFormatException e) {
     		this.txtErrorSched.setText("Completare i campi con valori numerici, per le capacità interi!");
@@ -250,6 +254,10 @@ public class FXMLController {
     		qtaDaProdurre = Integer.parseInt(this.txtQtaProd.getText());
     		if(qtaDaProdurre>10000) {
     			this.txtErrorSim.setText("Inserire un numero inferiore a 10000!");
+    			return;
+    		}
+    		if(qtaDaProdurre<=0) {
+    			this.txtErrorSim.setText("Inserire un numero di pezzi superiore a 0!");
     			return;
     		}
     	}catch(NumberFormatException e) {

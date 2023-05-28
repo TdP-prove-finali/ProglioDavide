@@ -4,15 +4,24 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
+import com.zaxxer.hikari.HikariDataSource;
+
 public class DBconnect {
 	
+	static private HikariDataSource ds = null;
+	static private String url = "jdbc:mysql://localhost:3306/ordini_produzione";
+	
 	public static Connection getConnection() {
-		String url = "jdbc:mysql://localhost:3306/ordini_produzione?user=root&password=orion22";
+		
+		if(ds==null) {
+			ds = new HikariDataSource();
+			ds.setJdbcUrl(url);
+			ds.setUsername("root");
+			ds.setPassword("orion22");
+		}
 		try {
-			Connection conn = DriverManager.getConnection(url);
-			return conn;
+			return ds.getConnection();
 		} catch (SQLException e) {
-			System.out.println("ERRORE di connessione al database");
 			e.printStackTrace();
 			return null;
 		}

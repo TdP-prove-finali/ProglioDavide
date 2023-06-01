@@ -61,10 +61,12 @@ public class LotSizing3 {
 				int i = 1;
 				while(contaMesi>0) {
 					if((d.getMese()-i)>=1) {  
-						if(this.costoProdOrd+i*this.costoStoccaggio<this.costoProdEsterna) { //controllo anche se max capacita
+						if(this.costoProdOrd+i*this.costoStoccaggio<this.costoProdEsterna
+								&& this.schedOttima.get(d.getMese()-1-i).getQtaProdOrd()<this.capacitaOrd) { 
 							parziale.add(new Disposizione(this.schedOttima.get(d.getMese()-1-i).getQtaProdOrd(), "ord", d.getMese()-i));
 						}
-						if(this.costoProdStraord+i*this.costoStoccaggio<this.costoProdEsterna) {
+						if(this.costoProdStraord+i*this.costoStoccaggio<this.costoProdEsterna
+								&& this.schedOttima.get(d.getMese()-1-i).getQtaProdStraord()<this.capacitaStraord) {
 							parziale.add(new Disposizione(this.schedOttima.get(d.getMese()-1-i).getQtaProdStraord(), "straord", d.getMese()-i));
 						}
 					}

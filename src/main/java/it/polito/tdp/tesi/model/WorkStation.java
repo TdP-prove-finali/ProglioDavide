@@ -4,17 +4,17 @@ import java.util.HashMap;
 
 public class WorkStation {
 	
-	private double t0; //tempo di processo 
-	private double stdv0; //deviazione standard tempi di processo
+	private double t0; //tempo medio di processo 
+	private double stdv0; //variabilità tempi di processo
 	//Fermi macchina non schedulati
 	private double mf; //tempo medio tra guasti successivi
-	private double stdvF; //deviazione standard tempo tra guasti successivi
+	private double stdvF; //variabilità tempo tra guasti successivi
 	private double mr; //tempo medio di riparazione guasto 
-	private double stdvR; //deviazione standard tempo di riparazione
+	private double stdvR; //variabilità tempo di riparazione
 	//Fermi macchina schedulati
 	private int Ns; //numero medio di jobs tra setups consecutivi 
 	private double ts; //tempo medio di setup 
-	private double stdvS; // deviazione standard tempo di setup
+	private double stdvS; //variabilità tempo di setup
 	
 	private double time;
 	private HashMap<Integer, Double> ingressi;

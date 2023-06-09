@@ -109,13 +109,27 @@ public class LotSizing3 {
 			}
 		}else {
 			for(int i=slotProduttivo; i<parziale.size(); i++) {
-				if(parziale.get(i).getQta()+1<=getCapacita(parziale.get(i).getTipo())) {  
-					parziale.get(i).setQta(parziale.get(i).getQta()+1);
-					d.setQta(d.getQta()-1);
+				if(parziale.get(i).getQta()<getCapacita(parziale.get(i).getTipo())) {
+					int qtaI = parziale.get(i).getQta();
+					int qtaAgg = 0;
+					if(qtaI+d.getQta()<=getCapacita(parziale.get(i).getTipo())){
+						parziale.get(i).setQta(parziale.get(i).getQta()+d.getQta());
+						qtaAgg = d.getQta();
+						d.setQta(0);
+					}else {
+						if(parziale.get(i).getQta()<getCapacita(parziale.get(i).getTipo())) {
+							qtaAgg = getCapacita(parziale.get(i).getTipo())-parziale.get(i).getQta();
+							parziale.get(i).setQta(getCapacita(parziale.get(i).getTipo()));
+							d.setQta(d.getQta()-qtaAgg);
+						}else {
+							slotProduttivo = i+1;
+						}
+					}
 					schedula(parziale, d, slotProduttivo);
-					parziale.get(i).setQta(parziale.get(i).getQta()-1);
-					d.setQta(d.getQta()+1);
-					slotProduttivo = i+1;
+					parziale.get(i).setQta(qtaI);
+					d.setQta(d.getQta()+qtaAgg);
+				}else {
+					slotProduttivo++;
 				}
 			}
 		}
